@@ -125,7 +125,7 @@ The reasoning for the above is as follows:
 
 \section{Dynamic Programming}
 
-%%%%%%%%%%%% POLICY EVALUATION
+%%%%%%%%%%%% 1 POLICY EVALUATION
 \begin{algorithm}
 	\KwIn{MDP, policy $\pi$, small positive number $\theta$}
     	\KwOut{$V \approx v_\pi$}
@@ -142,9 +142,9 @@ The reasoning for the above is as follows:
 	\caption{Policy Evaluation}
 \end{algorithm}
 
-%%%%%%%%%%%% ESTIMATION OF ACTION VALUES
+%%%%%%%%%%%% 2 ESTIMATION OF ACTION VALUES
 \begin{algorithm}
-	\KwIn{state-value function $V$}
+	\KwIn{MDP, state-value function $V$}
     	\KwOut{action-value function $Q$}
 		
     	\For{$s \in \mathcal{S}$}{
@@ -157,7 +157,7 @@ The reasoning for the above is as follows:
 \end{algorithm}
 
 
-%%%%%%%%%%%% POLICY IMPROVEMENT
+%%%%%%%%%%%% 3 POLICY IMPROVEMENT
 \begin{algorithm}
 	\KwIn{MDP, value function $V$}
     	\KwOut{policy $\pi'$}
@@ -173,7 +173,7 @@ The reasoning for the above is as follows:
 	\caption{Policy Improvement}
 \end{algorithm}
 
-%%%%%%%%%%%% POLICY ITERATION 
+%%%%%%%%%%%% 4 POLICY ITERATION 
 \begin{algorithm}
 	\KwIn{MDP, small positive number $\theta$}
     	\KwOut{policy $\pi \approx \pi_*$}
@@ -191,7 +191,7 @@ The reasoning for the above is as follows:
 	\caption{Policy Iteration}
 \end{algorithm}
 
-%%%%%%%%%%%% TRUNCATED POLICY EVALUATION
+%%%%%%%%%%%% 5 TRUNCATED POLICY EVALUATION
 \begin{algorithm}
 	\KwIn{MDP, policy $\pi$, value function $V$, positive integer $max\_iterations$}
     	\KwOut{$V \approx v_\pi$ (if $max\_iterations$ is large enough)}
@@ -206,7 +206,7 @@ The reasoning for the above is as follows:
 	\caption{Truncated Policy Evaluation}
 \end{algorithm}
 
-%%%%%%%%%%%% TRUNCATED POLICY ITERATION
+%%%%%%%%%%%% 6 TRUNCATED POLICY ITERATION
 \begin{algorithm}
 	\KwIn{MDP, positive integer $max\_iterations$, small positive number $\theta$}
     	\KwOut{policy $\pi \approx \pi_*$}
@@ -221,7 +221,7 @@ The reasoning for the above is as follows:
 	\caption{Truncated Policy Iteration}
 \end{algorithm}
 
-%%%%%%%%%%%% VALUE ITERATION
+%%%%%%%%%%%% 7 VALUE ITERATION
 \begin{algorithm}
 	\KwIn{MDP, small positive number $\theta$}
     	\KwOut{policy $\pi \approx \pi_*$}
@@ -244,7 +244,7 @@ The reasoning for the above is as follows:
 
 \section{Monte Carlo Methods}
 
-%%%%%%%%%%%% FIRST-VISIT MC PREDICTION (STATE VALUES)
+%%%%%%%%%%%% 8 FIRST-VISIT MC PREDICTION (STATE VALUES)
 \begin{algorithm}
 	\KwIn{policy $\pi$, positive integer $num\_episodes$}
     	\KwOut{value function $V$ ($\approx v_\pi$ if $num\_episodes$ is large enough)}
@@ -264,7 +264,7 @@ The reasoning for the above is as follows:
 	\caption{First-Visit MC Prediction (\textit{for state values})}
 \end{algorithm}
 
-%%%%%%%%%%%% FIRST-VISIT MC PREDICTION (ACTION VALUES)
+%%%%%%%%%%%% 9 FIRST-VISIT MC PREDICTION (ACTION VALUES)
 \begin{algorithm}
 	\KwIn{policy $\pi$, positive integer $num\_episodes$}
     	\KwOut{value function $Q$ ($\approx q_\pi$ if $num\_episodes$ is large enough)}
@@ -284,14 +284,14 @@ The reasoning for the above is as follows:
 	\caption{First-Visit MC Prediction (\textit{for action values})}
 \end{algorithm}
 
-%%%%%%%%%%%% GLIE MC CONTROL
+%%%%%%%%%%%% 10 GLIE MC CONTROL
 \begin{algorithm}
-	\KwIn{positive integer $num\_episodes$}
+	\KwIn{positive integer $num\_episodes$, GLIE $\{\epsilon_i\}$}
     	\KwOut{policy $\pi$ ($\approx \pi_*$ if $num\_episodes$ is large enough)}
 	Initialize $Q(s,a) = 0$ for all $s\in\mathcal{S}$ and $a\in\mathcal{A}(s)$ \\
 	Initialize $N(s,a) = 0$ for all $s\in\mathcal{S}, a\in\mathcal{A}(s)$ \\
 	\For{$i \leftarrow 1 \textbf{ to } num\_episodes$}{
-	$\epsilon \leftarrow \frac{1}{i}$\\
+	$\epsilon \leftarrow \epsilon_i$\\
 	$\pi \leftarrow \epsilon\text{-greedy}(Q)$\\
     	Generate an episode $S_0, A_0, R_1, \ldots, S_T$ using $\pi$\\
 	\For{$t \leftarrow 0 \textbf{ to }T-1$}{
@@ -306,13 +306,13 @@ The reasoning for the above is as follows:
 \end{algorithm}
 
 
-%%%%%%%%%%%% CONSTANT-ALPHA MC CONTROL
+%%%%%%%%%%%% 11 CONSTANT-ALPHA MC CONTROL
 \begin{algorithm}
-	\KwIn{positive integer $num\_episodes$, small positive fraction $\alpha$}
+	\KwIn{positive integer $num\_episodes$, small positive fraction $\alpha$, GLIE $\{\epsilon_i\}$}
     	\KwOut{policy $\pi$ ($\approx \pi_*$ if $num\_episodes$ is large enough)}
 	Initialize $Q$ arbitrarily (e.g., $Q(s,a) = 0$ for all $s\in\mathcal{S}$ and $a\in\mathcal{A}(s)$) \\
 	\For{$i \leftarrow 1 \textbf{ to } num\_episodes$}{
-	$\epsilon \leftarrow \frac{1}{i}$\\
+	$\epsilon \leftarrow \epsilon_i$\\
 	$\pi \leftarrow \epsilon\text{-greedy}(Q)$\\
     	Generate an episode $S_0, A_0, R_1, \ldots, S_T$ using $\pi$\\
 	\For{$t \leftarrow 0 \textbf{ to }T-1$}{
@@ -330,7 +330,7 @@ The reasoning for the above is as follows:
 
 \section{Temporal-Difference Methods}
 
-%%%%%%%%%%%% TD(0)
+%%%%%%%%%%%% 12 TD(0)
 \begin{algorithm}
 	\KwIn{policy $\pi$, positive integer $num\_episodes$}
     	\KwOut{value function $V$ ($\approx v_\pi$ if $num\_episodes$ is large enough)}
@@ -349,13 +349,13 @@ The reasoning for the above is as follows:
 	\caption{TD(0)}
 \end{algorithm}
 
-%%%%%%%%%%%% Sarsa
+%%%%%%%%%%%% 13 Sarsa
 \begin{algorithm}
-	\KwIn{policy $\pi$, positive integer $num\_episodes$, small positive fraction $\alpha$}
+	\KwIn{policy $\pi$, positive integer $num\_episodes$, small positive fraction $\alpha$, GLIE $\{\epsilon_i\}$}
     	\KwOut{value function $Q$ ($\approx q_\pi$ if $num\_episodes$ is large enough)}
 	Initialize $Q$ arbitrarily (e.g., $Q(s,a) = 0$ for all $s\in\mathcal{S}$ and $a\in\mathcal{A}(s)$, and $Q(terminal\text{-}state, \cdot)=0$) \\
     	\For{$i \leftarrow 1 \textbf{ to } num\_episodes$}{
-		$\epsilon \leftarrow \frac{1}{i}$\\
+		$\epsilon \leftarrow \epsilon_i$\\
 		Observe $S_0$\\
 		Choose action $A_0$ using policy derived from $Q$ (e.g., $\epsilon$-greedy)\\
 		$t\leftarrow 0$\\
@@ -370,13 +370,13 @@ The reasoning for the above is as follows:
 	\caption{Sarsa}
 \end{algorithm}
 
-%%%%%%%%%%%% Q-Learning
+%%%%%%%%%%%% 14 Q-Learning
 \begin{algorithm}
-	\KwIn{policy $\pi$, positive integer $num\_episodes$, small positive fraction $\alpha$}
+	\KwIn{policy $\pi$, positive integer $num\_episodes$, small positive fraction $\alpha$, GLIE $\{\epsilon_i\}$}
     	\KwOut{value function $Q$ ($\approx q_\pi$ if $num\_episodes$ is large enough)}
 	Initialize $Q$ arbitrarily (e.g., $Q(s,a) = 0$ for all $s\in\mathcal{S}$ and $a\in\mathcal{A}(s)$, and $Q(terminal\text{-}state, \cdot)=0$) \\
     	\For{$i \leftarrow 1 \textbf{ to } num\_episodes$}{
-		$\epsilon \leftarrow \frac{1}{i}$\\
+		$\epsilon \leftarrow \epsilon_i$\\
 		Observe $S_0$\\
 		$t\leftarrow 0$\\
 		\Repeat{$S_t$ is terminal}{
@@ -391,13 +391,13 @@ The reasoning for the above is as follows:
 \end{algorithm}
 
 
-%%%%%%%%%%%% Expected Sarsa
+%%%%%%%%%%%% 15 Expected Sarsa
 \begin{algorithm}
-	\KwIn{policy $\pi$, positive integer $num\_episodes$, small positive fraction $\alpha$}
+	\KwIn{policy $\pi$, positive integer $num\_episodes$, small positive fraction $\alpha$, GLIE $\{\epsilon_i\}$}
     	\KwOut{value function $Q$ ($\approx q_\pi$ if $num\_episodes$ is large enough)}
 	Initialize $Q$ arbitrarily (e.g., $Q(s,a) = 0$ for all $s\in\mathcal{S}$ and $a\in\mathcal{A}(s)$, and $Q(terminal\text{-}state, \cdot)=0$) \\
     	\For{$i \leftarrow 1 \textbf{ to } num\_episodes$}{
-		$\epsilon \leftarrow \frac{1}{i}$\\
+		$\epsilon \leftarrow \epsilon_i$\\
 		Observe $S_0$\\
 		$t\leftarrow 0$\\
 		\Repeat{$S_t$ is terminal}{
